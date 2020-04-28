@@ -1,107 +1,54 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { MdShoppingCart } from 'react-icons/md';
+import api from '../../services/api';
 
 import { ProductList } from './styles';
 
-export default function Home() {
-  return (
-    <ProductList>
-      <li>
-        <img
-          src="https://api.supermacs.ie//uploads/products/228/double%20deal%201.png"
-          alt="Yummi Pizza"
-        />
-        <strong>The Yummi Pizza</strong>
-        <span>From $100.00</span>
+class Home extends Component {
+  state = {
+    products: [],
+  };
 
-        <button type="button">
-          <div>
-            <MdShoppingCart size={16} color="#fff" /> 3
-          </div>
+  async componentDidMount() {
+    const response = await api.get('products');
 
-          <span>Add</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://api.supermacs.ie//uploads/products/228/double%20deal%201.png"
-          alt="Yummi Pizza"
-        />
-        <strong>The Yummi Pizza</strong>
-        <span>From $100.00</span>
+    this.setState({ products: response.data });
+  }
 
-        <button type="button">
-          <div>
-            <MdShoppingCart size={16} color="#fff" /> 3
-          </div>
+  handleAddProduct = (product) => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'ADD_TO_CART',
+      product,
+    });
+  };
 
-          <span>Add</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://api.supermacs.ie//uploads/products/228/double%20deal%201.png"
-          alt="Yummi Pizza"
-        />
-        <strong>The Yummi Pizza</strong>
-        <span>From $100.00</span>
+  render() {
+    const { products } = this.state;
+    return (
+      <ProductList>
+        {products.map((product) => (
+          <li key={product.id}>
+            <img src={product.image} alt={product.title} />
+            <strong>{product.title}</strong>
+            <span>From €{product.price}</span>
 
-        <button type="button">
-          <div>
-            <MdShoppingCart size={16} color="#fff" /> 3
-          </div>
+            <button
+              type="button"
+              onClick={() => this.handleAddProduct(product)}
+            >
+              <div>
+                <MdShoppingCart size={16} color="#fff" /> 3
+              </div>
 
-          <span>Add</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://api.supermacs.ie//uploads/products/228/double%20deal%201.png"
-          alt="Yummi Pizza"
-        />
-        <strong>The Yummi Pizza</strong>
-        <span>From $100.00</span>
-
-        <button type="button">
-          <div>
-            <MdShoppingCart size={16} color="#fff" /> 3
-          </div>
-
-          <span>Add</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://api.supermacs.ie//uploads/products/228/double%20deal%201.png"
-          alt="Yummi Pizza"
-        />
-        <strong>The Yummi Pizza</strong>
-        <span>From $100.00</span>
-
-        <button type="button">
-          <div>
-            <MdShoppingCart size={16} color="#fff" /> 3
-          </div>
-
-          <span>Add</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://api.supermacs.ie//uploads/products/228/double%20deal%201.png"
-          alt="Yummi Pizza"
-        />
-        <strong>The Yummi Pizza</strong>
-        <span>From $100.00</span>
-
-        <button type="button">
-          <div>
-            <MdShoppingCart size={16} color="#fff" /> 3
-          </div>
-
-          <span>Add to Cart</span>
-        </button>
-      </li>
-    </ProductList>
-  );
+              <span>Add to cart</span>
+            </button>
+          </li>
+        ))}
+      </ProductList>
+    );
+  }
 }
+
+export default connect()(Home);

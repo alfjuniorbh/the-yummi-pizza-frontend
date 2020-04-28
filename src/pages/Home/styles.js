@@ -30,7 +30,7 @@ export const ProductList = styled.ul`
       font-size: 21px;
       line-height: 20px;
       color: #333;
-      margin: 5px 0 20px;
+      margin: 10px 0 20px;
     }
 
     button {
