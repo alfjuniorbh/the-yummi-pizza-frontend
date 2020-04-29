@@ -12,9 +12,15 @@ export function addToCartSuccess(product) {
   };
 }
 
-export function removeFromCart(id) {
+export function removeRequest(id) {
   return {
-    type: '@cart/REMOVE',
+    type: '@cart/REMOVE_REQUEST',
+    id: id,
+  };
+}
+export function removeSuccess(id) {
+  return {
+    type: '@cart/REMOVE_SUCCESS',
     id: id,
   };
 }

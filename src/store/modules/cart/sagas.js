@@ -4,7 +4,11 @@ import api from '../../../services/api';
 import history from '../../../services/history';
 import showToast from '../../../components/Toast';
 
-import { addToCartSuccess, updateAmountSuccess } from './actions';
+import {
+  addToCartSuccess,
+  removeSuccess,
+  updateAmountSuccess,
+} from './actions';
 
 function* addToCart({ id }) {
   const productExists = yield select((state) =>
@@ -37,6 +41,10 @@ function* addToCart({ id }) {
   }
 }
 
+function* removeFromCart({ id }) {
+  yield put(removeSuccess(id));
+}
+
 function* updateAmount({ id, amount }) {
   if (amount <= 0) return;
 
@@ -54,5 +62,6 @@ function* updateAmount({ id, amount }) {
 
 export default all([
   takeLatest('@cart/ADD_REQUEST', addToCart),
+  takeLatest('@cart/REMOVE_REQUEST', removeFromCart),
   takeLatest('@cart/UPDATE_AMOUNT_REQUEST', updateAmount),
 ]);

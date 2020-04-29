@@ -5,22 +5,30 @@ import {
   MdAddCircleOutline,
   MdDelete,
 } from 'react-icons/md';
+import { BsFillExclamationTriangleFill } from 'react-icons/bs';
 
 import * as CartActions from '../../store/modules/cart/actions';
 
 import { Container, ProductTable, Total } from './styles';
 
 export default function Cart() {
-  const total = useSelector((state) =>
+  const total_eur = useSelector((state) =>
     state.cart.reduce((totalSum, product) => {
-      return totalSum + product.price * product.amount;
+      return totalSum + product.price_eur * product.amount;
+    }, 0),
+  );
+
+  const total_dol = useSelector((state) =>
+    state.cart.reduce((totalSum, product) => {
+      return totalSum + product.price_dol * product.amount;
     }, 0),
   );
 
   const cart = useSelector((state) =>
     state.cart.map((product) => ({
       ...product,
-      subtotal: product.price * product.amount,
+      subtotal_eur: product.price_eur * product.amount,
+      subtotal_dol: product.price_dol * product.amount,
     })),
   );
 
@@ -32,7 +40,6 @@ export default function Cart() {
   function decrement(product) {
     dispatch(CartActions.updateAmountRequest(product.id, product.amount - 1));
   }
-
   return (
     <Container>
       <ProductTable>
@@ -46,6 +53,15 @@ export default function Cart() {
           </tr>
         </thead>
         <tbody>
+          {total_eur === 0 && (
+            <tr>
+              <td colSpan={5}>
+                <p>
+                  <BsFillExclamationTriangleFill /> No products added to cart
+                </p>
+              </td>
+            </tr>
+          )}
           {cart.map((product) => (
             <tr key={product.id}>
               <td>
@@ -53,7 +69,7 @@ export default function Cart() {
               </td>
               <td>
                 <strong>{product.title}</strong>
-                <span>${product.price}</span>
+                <span>€{product.price_eur.toFixed(2)}</span>
               </td>
               <td>
                 <div>
@@ -67,13 +83,13 @@ export default function Cart() {
                 </div>
               </td>
               <td>
-                <strong>${product.subtotal.toFixed(2)}</strong>
+                <strong>€{product.subtotal_eur.toFixed(2)}</strong>
               </td>
               <td>
                 <button
                   type="button"
                   onClick={() =>
-                    dispatch(CartActions.removeFromCart(product.id))
+                    dispatch(CartActions.removeRequest(product.id))
                   }
                 >
                   <MdDelete size={20} color="#e11400" />
@@ -89,7 +105,9 @@ export default function Cart() {
 
         <Total>
           <span>Total</span>
-          <strong>${total.toFixed(2)}</strong>
+          <strong>
+            €{total_eur.toFixed(2)} | ${total_dol.toFixed(2)}
+          </strong>
         </Total>
       </footer>
     </Container>

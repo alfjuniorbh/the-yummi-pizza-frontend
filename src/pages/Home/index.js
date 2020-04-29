@@ -37,7 +37,10 @@ export default function Home() {
         <li key={product.id}>
           <img src={product.image} alt={product.title} />
           <strong>{product.title}</strong>
-          <span>From €{product.price}</span>
+          <span>
+            From €{product.price_eur.toFixed(2)} | $
+            {product.price_dol.toFixed(2)}
+          </span>
 
           <button type="button" onClick={() => handleAddProduct(product.id)}>
             <div>
