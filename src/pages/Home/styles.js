@@ -26,11 +26,19 @@ export const ProductList = styled.ul`
       margin-top: 5px;
     }
 
-    > span {
-      font-size: 21px;
-      line-height: 20px;
-      color: #333;
+    > p {
       margin: 10px 0 20px;
+
+      span {
+        font-size: 21px;
+        line-height: 20px;
+        color: #333;
+        + span {
+          margin-left: 10px;
+          padding-left: 10px;
+          border-left: 1px solid #333;
+        }
+      }
     }
 
     button {

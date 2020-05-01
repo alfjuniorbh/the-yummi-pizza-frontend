@@ -6,29 +6,31 @@ import {
   MdDelete,
 } from 'react-icons/md';
 import { BsFillExclamationTriangleFill } from 'react-icons/bs';
+import history from './../../services/history';
 
 import * as CartActions from '../../store/modules/cart/actions';
 
 import { Container, ProductTable, Total } from './styles';
 
 export default function Cart() {
-  const total_eur = useSelector((state) =>
+  const total_euro = useSelector((state) =>
     state.cart.reduce((totalSum, product) => {
-      return totalSum + product.price_eur * product.amount;
+      const sumTotal = totalSum + product['prices'][0].price * product.amount;
+      return parseFloat(sumTotal).toFixed(2);
     }, 0),
   );
 
-  const total_dol = useSelector((state) =>
+  const total_dolar = useSelector((state) =>
     state.cart.reduce((totalSum, product) => {
-      return totalSum + product.price_dol * product.amount;
+      const sumTotal = totalSum + product['prices'][1].price * product.amount;
+      return parseFloat(sumTotal).toFixed(2);
     }, 0),
   );
 
   const cart = useSelector((state) =>
     state.cart.map((product) => ({
       ...product,
-      subtotal_eur: product.price_eur * product.amount,
-      subtotal_dol: product.price_dol * product.amount,
+      subtotal: product['prices'][0].price * product.amount,
     })),
   );
 
@@ -53,7 +55,7 @@ export default function Cart() {
           </tr>
         </thead>
         <tbody>
-          {total_eur === 0 && (
+          {total_euro === 0 && (
             <tr>
               <td colSpan={5}>
                 <p>
@@ -69,7 +71,8 @@ export default function Cart() {
               </td>
               <td>
                 <strong>{product.title}</strong>
-                <span>€{product.price_eur.toFixed(2)}</span>
+                <small>{product.description}</small>
+                <span>€{product['prices'][1].price}</span>
               </td>
               <td>
                 <div>
@@ -83,7 +86,7 @@ export default function Cart() {
                 </div>
               </td>
               <td>
-                <strong>€{product.subtotal_eur.toFixed(2)}</strong>
+                <strong>€{product.subtotal.toFixed(2)}</strong>
               </td>
               <td>
                 <button
@@ -101,12 +104,19 @@ export default function Cart() {
       </ProductTable>
 
       <footer>
-        <button type="button">Finish Order</button>
+        <button
+          type="button"
+          onClick={() => {
+            history.push('/checkout');
+          }}
+        >
+          Finish Order
+        </button>
 
         <Total>
           <span>Total</span>
           <strong>
-            €{total_eur.toFixed(2)} | ${total_dol.toFixed(2)}
+            €{total_euro} | ${total_dolar}
           </strong>
         </Total>
       </footer>

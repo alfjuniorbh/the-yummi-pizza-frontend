@@ -11,14 +11,15 @@ export default function Header() {
   return (
     <Container>
       <h1>
-        <Link to="/">
-          <img src={logo} alt="The Yummi Pizza" /> <span>The Yummi Pizza</span>
+        <Link to="/" data-testid="brand">
+          <img src={logo} alt="The Yummi Pizza" />
+          <span>The Yummi Pizza</span>
         </Link>
       </h1>
 
-      <Cart to="/cart">
+      <Cart to="/cart" data-testid="total-cart">
         <div>
-          <strong>My Shopping cart</strong>
+          <strong>My Shopping Cart</strong>
           <span>{cartSize} itens</span>
         </div>
 

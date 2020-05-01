@@ -22,7 +22,7 @@ export default function Home() {
     async function loadProducts() {
       const response = await api.get('products');
 
-      setProducts(response.data);
+      setProducts(response.data.data);
     }
     loadProducts();
   }, []);
@@ -37,11 +37,14 @@ export default function Home() {
         <li key={product.id}>
           <img src={product.image} alt={product.title} />
           <strong>{product.title}</strong>
-          <span>
-            From €{product.price_eur.toFixed(2)} | $
-            {product.price_dol.toFixed(2)}
-          </span>
-
+          <p>
+            {product['prices'].map((price) => (
+              <span key={price.id}>
+                {price.symbol}
+                {price.price}
+              </span>
+            ))}
+          </p>
           <button type="button" onClick={() => handleAddProduct(product.id)}>
             <div>
               <MdShoppingCart size={16} color="#fff" />
