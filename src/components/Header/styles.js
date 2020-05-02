@@ -13,6 +13,8 @@ export const Container = styled.header`
     padding: 0px;
     margin: 50px 0;
     height: auto;
+    transition: opacity 0.2s;
+
     a {
       color: #fff;
       font-weight: bold;
@@ -27,13 +29,29 @@ export const Container = styled.header`
         margin-left: 7px;
       }
     }
+
+    :hover {
+      opacity: 0.7;
+    }
   }
 `;
+
+export const Toolbar = styled.div`
+  display: flex;
+  align-items: top;
+`;
+
 export const Cart = styled(Link)`
   display: flex;
   align-items: center;
   color: #fff;
   transition: opacity 0.2s;
+
+  + a {
+    margin-left: 20px;
+    border-left: 1px solid #ccc;
+    padding-left: 20px;
+  }
 
   :hover {
     opacity: 0.7;

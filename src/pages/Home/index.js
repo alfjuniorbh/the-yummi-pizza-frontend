@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { MdShoppingCart } from 'react-icons/md';
+import { FiPlus } from 'react-icons/fi';
 import api from '../../services/api';
 
 import * as CartActions from '../../store/modules/cart/actions';
@@ -37,6 +37,7 @@ export default function Home() {
         <li key={product.id}>
           <img src={product.image} alt={product.title} />
           <strong>{product.title}</strong>
+          <small>{product.description}</small>
           <p>
             {product['prices'].map((price) => (
               <span key={price.id}>
@@ -47,7 +48,7 @@ export default function Home() {
           </p>
           <button type="button" onClick={() => handleAddProduct(product.id)}>
             <div>
-              <MdShoppingCart size={16} color="#fff" />
+              <FiPlus size={16} color="#fff" />
               {amount[product.id] || 0}
             </div>
 

@@ -13,62 +13,69 @@ export const Container = styled.div`
     justify-content: space-between;
     align-items: center;
 
-    div {
-      display: flex;
-    }
-
     button {
-      background: #55b930;
+      background: #e11400;
       color: #fff;
       border: 0;
-      border-radius: 20px;
+      border-radius: 4px;
       overflow: hidden;
       margin-top: auto;
-      padding: 12px 30px;
+      padding: 12px 20px;
 
       display: flex;
       align-items: center;
       transition: background-color 0.2s;
 
       &:hover {
-        background: ${darken(0.03, '#55b930')};
-      }
-
-      + button {
-        margin-left: 10px;
-        background: #e11400;
-        &:hover {
-          background: ${darken(0.03, '#e11400')};
-        }
+        background: ${darken(0.03, '#e11400')};
       }
     }
   }
 `;
+
+export const Order = styled.ul`
+  width: 100%;
+  li {
+    display: flex;
+    width: 100%;
+    height: 20px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0px 22px 0px;
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+
+    small {
+      padding: 5px 20px;
+      border-radius: 20px;
+      color: #fff;
+      font-weight: 400;
+      background: #e11400;
+    }
+  }
+
+  + ul {
+    margin-top: 30px;
+    border-top: 1px solid #eee;
+  }
+`;
+
 export const ProductTable = styled.table`
   width: 100%;
 
   thead th {
     color: #999;
-    text-align: left;
-    padding: 12px;
+    text-align: center;
+    padding: 12px 0px;
     text-transform: uppercase;
   }
 
   tbody td {
-    padding: 12px;
+    padding: 0px;
     border-bottom: 1px solid #eee;
-
-    p {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 30px;
-      font-size: 14px;
-      color: #e11400;
-
-      svg {
-        margin-right: 10px;
-      }
+    .text-right {
+      text-align: right;
     }
   }
 
@@ -92,25 +99,14 @@ export const ProductTable = styled.table`
   div {
     display: flex;
     align-items: center;
-
-    input {
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      color: #666;
-      padding: 6px;
-      width: 50px;
-    }
-  }
-
-  button {
-    background: none;
-    border: 0;
-    padding: 6px;
+    justify-content: center;
   }
 `;
 export const Total = styled.div`
   display: flex;
   align-items: baseline;
+  justify-content: flex-end;
+  width: 100%;
 
   span {
     color: #999;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { MdShoppingBasket } from 'react-icons/md';
+import { RiUserSettingsLine, RiShoppingBasket2Line } from 'react-icons/ri';
 
-import { Container, Cart } from './styles';
+import { Container, Toolbar, Cart } from './styles';
 import logo from '../../assets/logo.svg';
 
 export default function Header() {
@@ -17,14 +17,24 @@ export default function Header() {
         </Link>
       </h1>
 
-      <Cart to="/cart" data-testid="total-cart">
-        <div>
-          <strong>My Shopping Cart</strong>
-          <span>{cartSize} itens</span>
-        </div>
+      <Toolbar>
+        <Cart to="/dashboard">
+          <div>
+            <strong>My Orders</strong>
+            <span>dashboard</span>
+          </div>
+          <RiUserSettingsLine size={30} />
+        </Cart>
 
-        <MdShoppingBasket size={30} />
-      </Cart>
+        <Cart to="/cart" data-testid="total-cart">
+          <div>
+            <strong>My Shopping Cart</strong>
+            <span>{cartSize} itens</span>
+          </div>
+
+          <RiShoppingBasket2Line size={30} />
+        </Cart>
+      </Toolbar>
     </Container>
   );
 }

@@ -9,6 +9,7 @@ import Products from '../../components/Products';
 import Input from '../../components/Input';
 
 import * as CkecoutActions from '../../store/modules/checkout/actions';
+import showToast from '../../components/Toast';
 
 export default function Checkout() {
   const dispatch = useDispatch();
@@ -31,7 +32,11 @@ export default function Checkout() {
 
         dispatch(CkecoutActions.addCheckoutRequest(data));
       } catch (error) {
-        console.log(error);
+        showToast({
+          type: 'error',
+          message: 'All fields are required!',
+          timer: 3000,
+        });
       }
     },
     [dispatch],

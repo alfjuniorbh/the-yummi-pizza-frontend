@@ -14,11 +14,10 @@ export const FormControl = styled.div`
     background: #55b930;
     color: #fff;
     border: 0;
-    border-radius: 4px;
+    border-radius: 20px;
     overflow: hidden;
-    margin-top: auto;
     padding: 12px 20px;
-    margin-top: 10px;
+    margin-top: 30px;
     width: 100%;
 
     display: flex;

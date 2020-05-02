@@ -104,14 +104,24 @@ export default function Cart() {
       </ProductTable>
 
       <footer>
-        <button
-          type="button"
-          onClick={() => {
-            history.push('/checkout');
-          }}
-        >
-          Finish Order
-        </button>
+        <div>
+          <button
+            type="button"
+            onClick={() => {
+              history.push('/');
+            }}
+          >
+            Back to shop
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              history.push('/checkout');
+            }}
+          >
+            Checkout
+          </button>
+        </div>
 
         <Total>
           <span>Total</span>
