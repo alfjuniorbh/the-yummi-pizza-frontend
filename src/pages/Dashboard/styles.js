@@ -41,23 +41,24 @@ export const Order = styled.ul`
     height: 20px;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 0px 22px 0px;
+    padding: 20px 10px 22px 10px;
     font-weight: bold;
-    border-bottom: 1px solid #eee;
     margin-bottom: 20px;
+    background: #312e38;
+    color: #fff;
 
     small {
       padding: 5px 20px;
       border-radius: 20px;
       color: #fff;
       font-weight: 400;
-      background: #e11400;
+      background: ${(props) =>
+        props.type === 'Created' ? '#e11400' : '#55b930'};
     }
   }
 
   + ul {
     margin-top: 30px;
-    border-top: 1px solid #eee;
   }
 `;
 

@@ -39,6 +39,13 @@ export const Container = styled.header`
 export const Toolbar = styled.div`
   display: flex;
   align-items: top;
+
+  button {
+    background: transparent;
+    border: 0px;
+    margin-left: 20px;
+    color: #fff;
+  }
 `;
 
 export const Cart = styled(Link)`

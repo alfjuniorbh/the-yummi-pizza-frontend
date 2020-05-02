@@ -113,14 +113,16 @@ export default function Cart() {
           >
             Back to shop
           </button>
-          <button
-            type="button"
-            onClick={() => {
-              history.push('/checkout');
-            }}
-          >
-            Checkout
-          </button>
+          {total_euro > 0 && (
+            <button
+              type="button"
+              onClick={() => {
+                history.push('/checkout');
+              }}
+            >
+              Checkout
+            </button>
+          )}
         </div>
 
         <Total>

@@ -4,19 +4,16 @@ import api from '../../../services/api';
 import history from '../../../services/history';
 import showToast from '../../../components/Toast';
 
-import { addCheckoutSuccess } from './actions';
 import { clearCart } from '../cart/actions';
 
 function* addCheckout(data) {
   try {
     const cart = yield select((state) => state.cart);
     const order = [data.order, cart];
-    const response = yield call(api.post, 'orders', order);
-    yield put(addCheckoutSuccess(response.data));
-
+    yield call(api.post, 'orders', order);
     yield put(clearCart());
 
-    history.push('/');
+    history.push('/dashboard');
   } catch (error) {
     showToast({
       type: 'error',

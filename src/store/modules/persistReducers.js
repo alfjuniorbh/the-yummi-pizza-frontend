@@ -6,7 +6,7 @@ export default (reducers) => {
     {
       key: 'yummi',
       storage,
-      whitelist: ['cart'],
+      whitelist: ['cart', 'login'],
     },
     reducers,
   );

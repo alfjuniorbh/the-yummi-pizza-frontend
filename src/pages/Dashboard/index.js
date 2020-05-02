@@ -2,16 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Container, Order, ProductTable, Total } from './styles';
 import api from '../../services/api';
 
+import { store } from '../../store';
+
 export default function Dashboard() {
   const [orders, setOrders] = useState([]);
+  const token = store.getState().login.token;
 
   useEffect(() => {
     async function loadData() {
-      const response = await api.get('orders');
+      const response = await api.get(`orders?token=${token}`);
       setOrders(response.data.data);
     }
     loadData();
-  }, []);
+  }, [token]);
 
   const total = (order, index) => {
     const total = order.reduce(function (vl, item) {
@@ -24,7 +27,7 @@ export default function Dashboard() {
   return (
     <Container>
       {orders.map((order) => (
-        <Order key={order.id}>
+        <Order key={order.id} type={order.status}>
           <li>
             <div>Order: #{order.id}</div>
             <span>

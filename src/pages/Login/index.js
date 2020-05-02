@@ -1,19 +1,17 @@
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
 import { Container, FormControl, Row, Col } from './styles';
 
-import Products from '../../components/Products';
 import Input from '../../components/Input';
 
-import * as CkecoutActions from '../../store/modules/checkout/actions';
+import * as LoginActions from '../../store/modules/login/actions';
 import showToast from '../../components/Toast';
 
-export default function Checkout() {
+export default function Login() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.login.user);
 
   const handleSubmit = useCallback(
     async (data) => {
@@ -31,7 +29,32 @@ export default function Checkout() {
           abortEarly: false,
         });
 
-        dispatch(CkecoutActions.addCheckoutRequest(data));
+        dispatch(LoginActions.addCheckoutRequest(data));
+      } catch (error) {
+        showToast({
+          type: 'error',
+          message: 'All fields are required!',
+          timer: 3000,
+        });
+      }
+    },
+    [dispatch],
+  );
+
+  const handleSubmitLogin = useCallback(
+    async (data) => {
+      try {
+        const schema = Yup.object().shape({
+          email: Yup.string().required().email('Email is required'),
+          password: Yup.string().required('Passowrd is required'),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        const { email, password } = data;
+        dispatch(LoginActions.signInRequest(email, password));
       } catch (error) {
         showToast({
           type: 'error',
@@ -46,7 +69,8 @@ export default function Checkout() {
     <Container>
       <Row>
         <Col>
-          <Form initialData={user} onSubmit={handleSubmit}>
+          <h1>Don't Have an Account?</h1>
+          <Form onSubmit={handleSubmit}>
             <FormControl>
               <Input name="name" type="text" label="First & last name" />
             </FormControl>
@@ -72,13 +96,24 @@ export default function Checkout() {
               <Input name="address" type="text" label="Address" />
             </FormControl>
             <FormControl>
-              <button type="submit">Confirm Order</button>
+              <button type="submit">Register</button>
             </FormControl>
           </Form>
         </Col>
 
         <Col>
-          <Products />
+          <h1>I have an Account</h1>
+          <Form onSubmit={handleSubmitLogin}>
+            <FormControl>
+              <Input name="email" type="email" label="E-mail address" />
+            </FormControl>
+            <FormControl>
+              <Input name="password" type="password" label="Password" />
+            </FormControl>
+            <FormControl>
+              <button type="submit">Login in</button>
+            </FormControl>
+          </Form>
         </Col>
       </Row>
     </Container>

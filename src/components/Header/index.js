@@ -1,12 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RiUserSettingsLine, RiShoppingBasket2Line } from 'react-icons/ri';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  RiUserSettingsLine,
+  RiShoppingBasket2Line,
+  RiLogoutCircleRLine,
+} from 'react-icons/ri';
 
 import { Container, Toolbar, Cart } from './styles';
 import logo from '../../assets/logo.svg';
+import { signOut } from '../../store/modules/login/actions';
 
 export default function Header() {
+  const dispatch = useDispatch();
+  function handleSignOut() {
+    dispatch(signOut());
+  }
   const cartSize = useSelector((state) => state.cart.length);
   return (
     <Container>
@@ -34,6 +43,10 @@ export default function Header() {
 
           <RiShoppingBasket2Line size={30} />
         </Cart>
+
+        <button type="button" onClick={handleSignOut}>
+          <RiLogoutCircleRLine size={30} color="#e11400" />
+        </button>
       </Toolbar>
     </Container>
   );
