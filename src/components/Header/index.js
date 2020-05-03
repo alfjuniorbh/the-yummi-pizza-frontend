@@ -20,8 +20,6 @@ export default function Header() {
   const cartSize = useSelector((state) => state.cart.length);
   const user = useSelector((state) => state.login.user);
 
-  console.log(process.env.NODE_ENV);
-
   return (
     <Container>
       <h1>
