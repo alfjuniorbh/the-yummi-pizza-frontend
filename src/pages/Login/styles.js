@@ -40,6 +40,11 @@ export const Col = styled.div`
   float: left;
   width: 49%;
 
+  h1 {
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+
   + div {
     margin-left: 2%;
   }

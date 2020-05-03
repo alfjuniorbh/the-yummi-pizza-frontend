@@ -13,33 +13,35 @@ import showToast from '../../components/Toast';
 export default function Login() {
   const dispatch = useDispatch();
 
-  const handleSubmit = useCallback(
-    async (data) => {
-      try {
-        const schema = Yup.object().shape({
-          name: Yup.string().required('Name is required'),
-          email: Yup.string().required().email('Email is required'),
-          phonenumber: Yup.string().required('Phone number is required'),
-          zipcode: Yup.string().required('Zip/Post Code is required'),
-          city: Yup.string().required('City is required'),
-          address: Yup.string().required('Address is required'),
-        });
+  const handleSubmit = useCallback(async (data) => {
+    try {
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Name is required'),
+        email: Yup.string().required().email('Email is required'),
+        phonenumber: Yup.string().required('Phone number is required'),
+        zipcode: Yup.string().required('Zip/Post Code is required'),
+        city: Yup.string().required('City is required'),
+        address: Yup.string().required('Address is required'),
+      });
 
-        await schema.validate(data, {
-          abortEarly: false,
-        });
+      await schema.validate(data, {
+        abortEarly: false,
+      });
 
-        dispatch(LoginActions.addCheckoutRequest(data));
-      } catch (error) {
-        showToast({
-          type: 'error',
-          message: 'All fields are required!',
-          timer: 3000,
-        });
-      }
-    },
-    [dispatch],
-  );
+      //dispatch(LoginActions.addCheckoutRequest(data));
+      showToast({
+        type: 'success',
+        message: 'Successfull(To do) ;)',
+        timer: 3000,
+      });
+    } catch (error) {
+      showToast({
+        type: 'error',
+        message: 'All fields are required!',
+        timer: 3000,
+      });
+    }
+  }, []);
 
   const handleSubmitLogin = useCallback(
     async (data) => {
@@ -96,7 +98,7 @@ export default function Login() {
               <Input name="address" type="text" label="Address" />
             </FormControl>
             <FormControl>
-              <button type="submit">Register</button>
+              <button type="submit">Create new account</button>
             </FormControl>
           </Form>
         </Col>
