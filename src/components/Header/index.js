@@ -13,10 +13,13 @@ import { signOut } from '../../store/modules/login/actions';
 
 export default function Header() {
   const dispatch = useDispatch();
+
   function handleSignOut() {
     dispatch(signOut());
   }
   const cartSize = useSelector((state) => state.cart.length);
+  const user = useSelector((state) => state.login.user);
+
   return (
     <Container>
       <h1>
@@ -30,7 +33,7 @@ export default function Header() {
         <Cart to="/dashboard">
           <div>
             <strong>My Orders</strong>
-            <span>dashboard</span>
+            <span>{user ? user.name : 'dashboard'}</span>
           </div>
           <RiUserSettingsLine size={30} />
         </Cart>
@@ -44,9 +47,11 @@ export default function Header() {
           <RiShoppingBasket2Line size={30} />
         </Cart>
 
-        <button type="button" onClick={handleSignOut}>
-          <RiLogoutCircleRLine size={30} color="#e11400" />
-        </button>
+        {user && (
+          <button type="button" onClick={handleSignOut}>
+            <RiLogoutCircleRLine size={30} color="#e11400" />
+          </button>
+        )}
       </Toolbar>
     </Container>
   );

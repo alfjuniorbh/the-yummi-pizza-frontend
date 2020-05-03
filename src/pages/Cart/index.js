@@ -59,7 +59,7 @@ export default function Cart() {
             <tr>
               <td colSpan={5}>
                 <p>
-                  <BsFillExclamationTriangleFill /> No products added to cart
+                  <BsFillExclamationTriangleFill /> Your cart is empty
                 </p>
               </td>
             </tr>

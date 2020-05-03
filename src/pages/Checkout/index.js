@@ -11,9 +11,16 @@ import Input from '../../components/Input';
 import * as CkecoutActions from '../../store/modules/checkout/actions';
 import showToast from '../../components/Toast';
 
+import history from '../../services/history';
+
 export default function Checkout() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.login.user);
+  const cartSize = useSelector((state) => state.cart.length);
+
+  if (cartSize === 0) {
+    history.push('/');
+  }
 
   const handleSubmit = useCallback(
     async (data) => {
